@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import br.com.moolab.fiscalabordo.R;
 import br.com.moolab.fiscalabordo.utils.FontsUtils;
@@ -30,7 +30,8 @@ public class DetailFragment extends Fragment {
 
     @InjectView(R.id.header_title) TextView mVelocity;
     @InjectView(R.id.header_subtitle) TextView mSubTitle;
-    @InjectView(R.id.header_fab) FloatingActionButton mFab;
+    @InjectView(R.id.header_fab)
+    FloatingActionButton mFab;
 
     @InjectView(R.id.bug) Switch bug;
     @InjectView(R.id.stand) Switch stand;

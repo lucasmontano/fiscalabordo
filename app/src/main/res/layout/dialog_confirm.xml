@@ -17,7 +17,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/accent"
+                android:background="@color/fab"
                 android:orientation="vertical"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/double_margin"
@@ -164,7 +164,7 @@
             android:padding="@dimen/padding_intern"
             android:text="@string/cancel"
             android:textAllCaps="true"
-            android:textColor="@color/accent"
+            android:textColor="@color/fab"
             android:textSize="@dimen/text_medium" />
 
         <Button
@@ -176,7 +176,7 @@
             android:padding="@dimen/padding_intern"
             android:text="@string/confirm"
             android:textAllCaps="true"
-            android:textColor="@color/accent"
+            android:textColor="@color/fab"
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
 </LinearLayout>

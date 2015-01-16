@@ -270,6 +270,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
             geo.setLongitude(lastLocation.getLongitude());
             registro.put("location", geo);
         }
+        registro.put("plataform", "android");
         registro.put("fast", fast);
         registro.put("velocity", velocity);
         registro.put("broke", broke);

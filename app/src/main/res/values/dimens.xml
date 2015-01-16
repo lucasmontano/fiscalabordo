@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="header_height">100dp</dimen>
+    <dimen name="header_height_parent">133dp</dimen>
     <dimen name="fab_top">65dp</dimen>
     <dimen name="text_small">11sp</dimen>
     <dimen name="text_large">22sp</dimen>

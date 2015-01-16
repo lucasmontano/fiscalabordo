@@ -21,5 +21,7 @@
     <string name="title_finish">Registro Feito</string>
     <string name="more_apps_link">market://search?q=pub:Moolab</string>
     <string name="fast">Reportar velocidade do veículo</string>
+    <string name="title_activity_splash">Fiscal a Bordo</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

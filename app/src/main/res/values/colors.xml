@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#455A64</color>
-    <color name="primary_dark">#37474F</color>
-    <color name="accent">#0091EA</color>
+    <color name="primary_dark">#1A237E</color>
+    <color name="primary">#3F51B5</color>
+
+    <color name="ripple">#F50057</color>
+
+    <color name="fab">#C51162</color>
+    <color name="fab_pressed">#F50057</color>
+
+    <color name="accent">#448AFF</color>
+
     <color name="text_dark">#616161</color>
     <color name="text_light">#919191</color>
 </resources>
