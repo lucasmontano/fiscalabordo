@@ -1,6 +1,10 @@
 package br.com.moolab.fiscalabordo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -33,6 +38,9 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
     private static final String TAG_FINISH = "TAG_FINISH";
 
     private Tracker tracker;
+
+    private Location lastLocation;
+    private DetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,24 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         tracker = ((FiscalABordoApp) getApplication()).getTracker();
         tracker.setScreenName("Main");
         tracker.send(new HitBuilders.AppViewBuilder().build());
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                if (detailFragment == null || location == null) {
+                    return;
+                }
+                lastLocation = location;
+                detailFragment.setVelocity(location);
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+            public void onProviderEnabled(String provider) { }
+
+            public void onProviderDisabled(String provider) { }
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
     @Override
@@ -101,7 +127,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
     }
 
     @Override
-    public void onConfirm(final String company, final String velocity, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand, final boolean facebook) {
+    public void onConfirm(final String company, final String velocity, final Boolean fast, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand, final boolean facebook) {
 
         tracker.send(
             new HitBuilders.EventBuilder()
@@ -119,6 +145,16 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
                     .setAction("sinto_de_seguranca")
                     .setLabel(company)
                     .build()
+            );
+        }
+
+        if (fast) {
+            tracker.send(
+                    new HitBuilders.EventBuilder()
+                            .setCategory("registrando")
+                            .setAction("velocidade")
+                            .setLabel(company)
+                            .build()
             );
         }
 
@@ -167,9 +203,9 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
                 @Override
                 public void done(final ParseUser parseUser, com.parse.ParseException e) {
                     if (parseUser == null) {
-                        saveAnonymous(company, velocity, belt, broke, bug, stand);
+                        saveAnonymous(company, velocity, fast, belt, broke, bug, stand);
                     } else {
-                        sendToParse(company, velocity, belt, broke, bug, stand, parseUser);
+                        sendToParse(company, velocity, fast, belt, broke, bug, stand, parseUser);
 
                         Request request = Request.newMeRequest(ParseFacebookUtils.getSession(),
                                 new Request.GraphUserCallback() {
@@ -190,17 +226,18 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
                 }
             });
         } else {
-            saveAnonymous(company, velocity, belt, broke, bug, stand);
+            saveAnonymous(company, velocity, fast, belt, broke, bug, stand);
         }
     }
 
     private void initDetail() {
+        detailFragment = new DetailFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new DetailFragment())
+                .replace(R.id.container, detailFragment)
                 .commit();
     }
 
-    private void saveAnonymous(final String company, final String velocity, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand) {
+    private void saveAnonymous(final String company, final String velocity, final Boolean fast, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand) {
 
         ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
         if (ParseFacebookUtils.getSession() != null && ParseFacebookUtils.getSession().isOpened()) {
@@ -210,12 +247,12 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         ParseAnonymousUtils.logIn(new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
-                sendToParse(company, velocity, belt, broke, bug, stand, parseUser);
+                sendToParse(company, velocity, fast, belt, broke, bug, stand, parseUser);
             }
         });
     }
 
-    public void sendToParse(String company, String velocity, Boolean belt, Boolean broke, Boolean bug, Boolean stand, ParseUser user) {
+    public void sendToParse(String company, String velocity, Boolean fast, Boolean belt, Boolean broke, Boolean bug, Boolean stand, ParseUser user) {
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
@@ -227,6 +264,13 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         if (user != null) {
             registro.put("User", user);
         }
+        if (lastLocation != null) {
+            ParseGeoPoint geo = new ParseGeoPoint();
+            geo.setLatitude(lastLocation.getLatitude());
+            geo.setLongitude(lastLocation.getLongitude());
+            registro.put("location", geo);
+        }
+        registro.put("fast", fast);
         registro.put("velocity", velocity);
         registro.put("broke", broke);
         registro.put("dirty", bug);

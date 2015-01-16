@@ -30,6 +30,7 @@ public class ConfirmDialogFragment extends DialogFragment {
     public static final String ARG_BUG = "ARG_BUG";
     public static final String ARG_STAND = "ARG_STAND";
     public static final String ARG_BROKE = "ARG_BROKE";
+    public static final String ARG_FAST = "ARG_FAST";
 
     private ConfirmCallback mCallback;
 
@@ -42,12 +43,13 @@ public class ConfirmDialogFragment extends DialogFragment {
     @InjectView(R.id.is_stand) ImageView isStand;
     @InjectView(R.id.is_bug) ImageView isBug;
     @InjectView(R.id.is_broke) ImageView isBroke;
+    @InjectView(R.id.is_fast) ImageView isFast;
 
     private Typeface robotoRegular;
     private Typeface robotoBoldCondensed;
 
     public interface ConfirmCallback {
-        public void onConfirm(String company, String velocity, Boolean belt, Boolean broke, Boolean bug, Boolean stand, boolean user);
+        public void onConfirm(String company, String velocity, Boolean fast, Boolean belt, Boolean broke, Boolean bug, Boolean stand, boolean user);
     }
 
     @Override
@@ -63,6 +65,7 @@ public class ConfirmDialogFragment extends DialogFragment {
         mCallback.onConfirm(
                 company.getText().toString(),
                 velocity.getText().toString(),
+                getArguments().getBoolean(ARG_FAST),
                 getArguments().getBoolean(ARG_BELT),
                 getArguments().getBoolean(ARG_BROKE),
                 getArguments().getBoolean(ARG_BUG),
@@ -100,6 +103,7 @@ public class ConfirmDialogFragment extends DialogFragment {
         isStand.setVisibility(arguments.getBoolean(ARG_STAND) ? View.VISIBLE : View.GONE);
         isBug.setVisibility(arguments.getBoolean(ARG_BUG) ? View.VISIBLE : View.GONE);
         isBroke.setVisibility(arguments.getBoolean(ARG_BROKE) ? View.VISIBLE : View.GONE);
+        isFast.setVisibility(arguments.getBoolean(ARG_FAST) ? View.VISIBLE : View.GONE);
 
         // Fonts
         velocity.setTypeface(robotoBoldCondensed);

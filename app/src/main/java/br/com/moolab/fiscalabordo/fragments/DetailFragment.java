@@ -36,11 +36,17 @@ public class DetailFragment extends Fragment {
     @InjectView(R.id.stand) Switch stand;
     @InjectView(R.id.belt) Switch belt;
     @InjectView(R.id.broke) Switch broke;
+    @InjectView(R.id.fast) Switch fast;
 
     private Typeface robotoCondensed;
     private Typeface robotoMedium;
 
     public DetailFragment() {
+    }
+
+    @OnClick(R.id.fast_parent)
+    public void fastSwitch(View view) {
+        fast.setChecked( ! fast.isChecked());
     }
 
     @OnClick(R.id.bug_parent)
@@ -72,6 +78,7 @@ public class DetailFragment extends Fragment {
         args.putBoolean(ConfirmDialogFragment.ARG_STAND, stand.isChecked());
         args.putBoolean(ConfirmDialogFragment.ARG_BUG, bug.isChecked());
         args.putBoolean(ConfirmDialogFragment.ARG_BROKE, broke.isChecked());
+        args.putBoolean(ConfirmDialogFragment.ARG_FAST, fast.isChecked());
         confirm.setArguments(args);
         confirm.show(getActivity().getSupportFragmentManager(), DIALOG_CONFIRM);
     }
@@ -95,20 +102,9 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
+    }
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                location.getLatitude();
-                mVelocity.setText(String.valueOf((int) (location.getSpeed() * 3.6)) + " Km/h");
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-            public void onProviderEnabled(String provider) { }
-
-            public void onProviderDisabled(String provider) { }
-        };
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+    public void setVelocity(Location location) {
+        mVelocity.setText(String.valueOf((int) (location.getSpeed() * 3.6)) + " Km/h");
     }
 }

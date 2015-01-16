@@ -20,5 +20,6 @@
     <string name="msg_finish">Obrigado por reportar sua insatisfação.\n\nDesejamos a você uma excelente viagem.</string>
     <string name="title_finish">Registro Feito</string>
     <string name="more_apps_link">market://search?q=pub:Moolab</string>
+    <string name="fast">Reportar velocidade do veículo</string>
 
 </resources>
