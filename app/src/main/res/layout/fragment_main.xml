@@ -51,6 +51,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/belt_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
@@ -80,6 +81,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/stand_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
@@ -111,6 +113,7 @@
 
 
     <LinearLayout
+        android:id="@+id/bug_parent"
         android:layout_width="match_parent"
         android:background="?selectableItemBackground"
         android:layout_height="wrap_content"
@@ -140,6 +143,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/broke_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"

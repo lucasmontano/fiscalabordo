@@ -15,6 +15,7 @@ import com.facebook.model.GraphUser;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.parse.LogInCallback;
+import com.parse.ParseACL;
 import com.parse.ParseAnalytics;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
@@ -215,6 +216,12 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
     }
 
     public void sendToParse(String company, String velocity, Boolean belt, Boolean broke, Boolean bug, Boolean stand, ParseUser user) {
+
+        ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+        ParseACL.setDefaultACL(defaultACL, true);
+
         ParseObject registro = new ParseObject("Registro");
         registro.put("company", company);
         if (user != null) {

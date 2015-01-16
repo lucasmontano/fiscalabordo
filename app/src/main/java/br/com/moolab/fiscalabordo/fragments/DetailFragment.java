@@ -1,6 +1,7 @@
 package br.com.moolab.fiscalabordo.fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,6 +17,9 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import br.com.moolab.fiscalabordo.R;
 import br.com.moolab.fiscalabordo.utils.FontsUtils;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by lucas on 15/01/15.
@@ -24,76 +28,66 @@ public class DetailFragment extends Fragment {
 
     private static final String DIALOG_CONFIRM = "DIALOG_CONFIRM";
 
-    private TextView mVelocity;
-    private FloatingActionButton mFab;
-    private Switch bug;
-    private Switch stand;
-    private Switch belt;
-    private Switch broke;
+    @InjectView(R.id.header_title) TextView mVelocity;
+    @InjectView(R.id.header_subtitle) TextView mSubTitle;
+    @InjectView(R.id.header_fab) FloatingActionButton mFab;
+
+    @InjectView(R.id.bug) Switch bug;
+    @InjectView(R.id.stand) Switch stand;
+    @InjectView(R.id.belt) Switch belt;
+    @InjectView(R.id.broke) Switch broke;
+
+    private Typeface robotoCondensed;
+    private Typeface robotoMedium;
 
     public DetailFragment() {
+    }
+
+    @OnClick(R.id.bug_parent)
+    public void bugSwitch(View view) {
+        bug.setChecked( ! bug.isChecked());
+    }
+
+    @OnClick(R.id.belt_parent)
+    public void beltSwitch(View view) {
+        belt.setChecked( ! belt.isChecked());
+    }
+
+    @OnClick(R.id.stand_parent)
+    public void standSwitch(View view) {
+        stand.setChecked( ! stand.isChecked());
+    }
+
+    @OnClick(R.id.broke_parent)
+    public void brokeSwitch(View view) {
+        broke.setChecked( ! broke.isChecked());
+    }
+
+    @OnClick(R.id.header_fab)
+    public void fabConfirm(View view) {
+        ConfirmDialogFragment confirm = new ConfirmDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(ConfirmDialogFragment.ARG_VELOCITY, mVelocity.getText().toString());
+        args.putBoolean(ConfirmDialogFragment.ARG_BELT, belt.isChecked());
+        args.putBoolean(ConfirmDialogFragment.ARG_STAND, stand.isChecked());
+        args.putBoolean(ConfirmDialogFragment.ARG_BUG, bug.isChecked());
+        args.putBoolean(ConfirmDialogFragment.ARG_BROKE, broke.isChecked());
+        confirm.setArguments(args);
+        confirm.show(getActivity().getSupportFragmentManager(), DIALOG_CONFIRM);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mVelocity = ((TextView) rootView.findViewById(R.id.header_title));
-        mVelocity.setTypeface(FontsUtils.getInstance().getRobotoCondensed(getActivity().getAssets()));
-        ((TextView) rootView.findViewById(R.id.header_subtitle)).setTypeface(FontsUtils.getInstance().getRobotoMedium(getActivity().getAssets()));
+        // The Magic
+        ButterKnife.inject(this, rootView);
 
-        mFab = (FloatingActionButton) rootView.findViewById(R.id.header_fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        robotoCondensed = FontsUtils.getInstance().getRobotoCondensed(getActivity().getAssets());
+        robotoMedium = FontsUtils.getInstance().getRobotoMedium(getActivity().getAssets());
 
-            @Override
-            public void onClick(View v) {
-                ConfirmDialogFragment confirm = new ConfirmDialogFragment();
-                Bundle args = new Bundle();
-                args.putString(ConfirmDialogFragment.ARG_VELOCITY, mVelocity.getText().toString());
-                args.putBoolean(ConfirmDialogFragment.ARG_BELT, belt.isChecked());
-                args.putBoolean(ConfirmDialogFragment.ARG_STAND, stand.isChecked());
-                args.putBoolean(ConfirmDialogFragment.ARG_BUG, bug.isChecked());
-                args.putBoolean(ConfirmDialogFragment.ARG_BROKE, broke.isChecked());
-                confirm.setArguments(args);
-                confirm.show(getActivity().getSupportFragmentManager(), DIALOG_CONFIRM);
-            }
-        });
-
-        /**
-         * Itens selecionados
-         */
-        belt = (Switch) rootView.findViewById(R.id.belt);
-        bug = (Switch) rootView.findViewById(R.id.bug);
-        stand = (Switch) rootView.findViewById(R.id.stand);
-        broke = (Switch) rootView.findViewById(R.id.broke);
-
-        ((View) belt.getParent()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                belt.setChecked( ! belt.isChecked());
-            }
-        });
-
-        ((View) bug.getParent()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bug.setChecked( ! bug.isChecked());
-            }
-        });
-
-        ((View) stand.getParent()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stand.setChecked( ! stand.isChecked());
-            }
-        });
-
-        ((View) broke.getParent()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                broke.setChecked( ! broke.isChecked());
-            }
-        });
+        mVelocity.setTypeface(robotoCondensed);
+        mSubTitle.setTypeface(robotoMedium);
 
         return rootView;
     }
