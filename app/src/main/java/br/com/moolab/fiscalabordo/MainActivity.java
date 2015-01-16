@@ -1,28 +1,17 @@
 package br.com.moolab.fiscalabordo;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.parse.LogInCallback;
@@ -36,13 +25,12 @@ import com.parse.ParseUser;
 import br.com.moolab.fiscalabordo.fragments.ConfirmDialogFragment;
 import br.com.moolab.fiscalabordo.fragments.DetailFragment;
 import br.com.moolab.fiscalabordo.fragments.FinishDialogFragment;
-import br.com.moolab.fiscalabordo.utils.FontsUtils;
 
 
 public class MainActivity extends ActionBarActivity implements ConfirmDialogFragment.ConfirmCallback {
 
-    public static final String DIALOG_CONFIRM = "DIALOG_CONFIRM";
     private static final String TAG_FINISH = "TAG_FINISH";
+
     private Tracker tracker;
 
     @Override
@@ -61,7 +49,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         // GA tracking screen
-        tracker = ((FiscalAbordoApp) getApplication()).getTracker();
+        tracker = ((FiscalABordoApp) getApplication()).getTracker();
         tracker.setScreenName("Main");
         tracker.send(new HitBuilders.AppViewBuilder().build());
     }
@@ -95,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
 
             final String appPackageName = getPackageName();
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Moolab")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.more_apps_link))));
             } catch (android.content.ActivityNotFoundException anfe) {
             }
 
@@ -113,6 +101,55 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
 
     @Override
     public void onConfirm(final String company, final String velocity, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand, final boolean facebook) {
+
+        tracker.send(
+            new HitBuilders.EventBuilder()
+                    .setCategory("registrando")
+                    .setAction("velocidade")
+                    .setLabel(company)
+                    .setValue(Long.valueOf(velocity.replaceAll(" Km/h", "")))
+            .build()
+        );
+
+        if (belt) {
+            tracker.send(
+                new HitBuilders.EventBuilder()
+                    .setCategory("registrando")
+                    .setAction("sinto_de_seguranca")
+                    .setLabel(company)
+                    .build()
+            );
+        }
+
+        if (stand) {
+            tracker.send(
+                    new HitBuilders.EventBuilder()
+                            .setCategory("registrando")
+                            .setAction("superlotado")
+                            .setLabel(company)
+                            .build()
+            );
+        }
+
+        if (bug) {
+            tracker.send(
+                    new HitBuilders.EventBuilder()
+                            .setCategory("registrando")
+                            .setAction("falta_higienizacao")
+                            .setLabel(company)
+                            .build()
+            );
+        }
+
+        if (broke) {
+            tracker.send(
+                    new HitBuilders.EventBuilder()
+                            .setCategory("registrando")
+                            .setAction("estragado")
+                            .setLabel(company)
+                            .build()
+            );
+        }
 
         // Refresh Details
         initDetail();
