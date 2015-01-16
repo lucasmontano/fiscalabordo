@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
+
+    <!-- Replace placeholder ID with your tracking ID -->
+    <string name="ga_trackingId">UA-46965466-5</string>
+    <string name="ga_sampleFrequency">99.8</string>
+    <integer name="ga_sessionTimeout">300</integer>
+    <bool name="ga_autoActivityTracking">false</bool>
+    <bool name="ga_anonymizeIp">true</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+</resources>

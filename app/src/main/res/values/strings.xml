@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="facebook_app_id">324053601122888</string>
+    <string name="app_name">Fiscal a bordo</string>
+    <string name="action_settings">Mais Aplicativos</string>
+    <string name="company">Nome da empresa</string>
+    <string name="company_desc">Empresa responsável pelo transporte</string>
+    <string name="title">Passageiro Ligeiro</string>
+    <string name="velocity">0 Km/h</string>
+    <string name="velocity_desc">Velocidade do veículo</string>
+    <string name="belt">Sinto de segurança indisponível</string>
+    <string name="stand">Coletivo Superlotado</string>
+    <string name="bug">Falta higienização</string>
+    <string name="broke">Quebrou no caminho</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="public_data">Identificar-se</string>
+    <string name="public_data_subtitle">Desejo me identificar, do contrário o registro será publicado anonimamente.</string>
+    <string name="msg_finish">Obrigado por reportar sua insatisfação.\n\nDesejamos a você uma excelente viagem.</string>
+    <string name="title_finish">Registro Feito</string>
+
+</resources>
