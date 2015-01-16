@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         // GA tracking screen
-        tracker = ((FiscalABordoApp) getApplication()).getTracker();
+        tracker = ((FABordoApp) getApplication()).getTracker();
         tracker.setScreenName("Main");
         tracker.send(new HitBuilders.AppViewBuilder().build());
 
