@@ -1,11 +1,11 @@
-package br.com.moolab.fiscalabordo;
+package br.com.moolab.fiscalabordo.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,11 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.parse.LogInCallback;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseUser;
+import br.com.moolab.fiscalabordo.utils.FontsUtils;
+import br.com.moolab.fiscalabordo.R;
 
-public class DialogConfirm extends DialogFragment {
+public class ConfirmDialogFragment extends DialogFragment {
 
     public static final String ARG_VELOCITY = "ARG_VELOCITY";
     public static final String ARG_BELT = "ARG_BELT";
@@ -33,6 +32,7 @@ public class DialogConfirm extends DialogFragment {
     private EditText company;
     private TextView velocity;
     private Switch facebookLogin;
+    private TextView publicData;
 
     public interface ConfirmCallback {
         public void onConfirm(String company, String velocity, Boolean belt, Boolean broke, Boolean bug, Boolean stand, boolean user);
@@ -49,10 +49,9 @@ public class DialogConfirm extends DialogFragment {
 
         LinearLayout viewInflated = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.dialog_confirm, null);
 
-        company = ((EditText) viewInflated.findViewById(R.id.company));
 
         velocity = ((TextView) viewInflated.findViewById(R.id.velocity));
-        velocity.setTypeface(Fonts.getInstance().getRobotoBoldCondensed(getActivity().getAssets()));
+        velocity.setTypeface(FontsUtils.getInstance().getRobotoBoldCondensed(getActivity().getAssets()));
         velocity.setText(getArguments().getString(ARG_VELOCITY));
 
         ((ImageView) viewInflated.findViewById(R.id.is_belt)).setVisibility(getArguments().getBoolean(ARG_BELT) ? View.VISIBLE : View.GONE);
@@ -60,10 +59,13 @@ public class DialogConfirm extends DialogFragment {
         ((ImageView) viewInflated.findViewById(R.id.is_bug)).setVisibility(getArguments().getBoolean(ARG_BUG) ? View.VISIBLE : View.GONE);
         ((ImageView) viewInflated.findViewById(R.id.is_broke)).setVisibility(getArguments().getBoolean(ARG_BROKE) ? View.VISIBLE : View.GONE);
 
-        TextView publicData = (TextView) viewInflated.findViewById(R.id.public_data);
-        publicData.setTypeface(Fonts.getInstance().getRobotoRegular(getActivity().getAssets()));
+        Typeface robotoRegular = FontsUtils.getInstance().getRobotoRegular(getActivity().getAssets());
 
-        company.setTypeface(Fonts.getInstance().getRobotoRegular(getActivity().getAssets()));
+        publicData = (TextView) viewInflated.findViewById(R.id.public_data);
+        publicData.setTypeface(robotoRegular);
+
+        company = ((EditText) viewInflated.findViewById(R.id.company));
+        company.setTypeface(robotoRegular);
 
 
         facebookLogin = ((Switch) viewInflated.findViewById(R.id.facebook));
@@ -86,7 +88,7 @@ public class DialogConfirm extends DialogFragment {
                         getArguments().getBoolean(ARG_STAND),
                         facebookLogin.isChecked()
                 );
-                DialogConfirm.this.dismiss();
+                ConfirmDialogFragment.this.dismiss();
             }
         });
 
@@ -94,7 +96,7 @@ public class DialogConfirm extends DialogFragment {
         ((Button) viewInflated.findViewById(R.id.action_cancel)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogConfirm.this.dismiss();
+                ConfirmDialogFragment.this.dismiss();
             }
         });
 

@@ -23,6 +23,8 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseAnonymousUtils;
@@ -31,28 +33,37 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import br.com.moolab.fiscalabordo.fragments.ConfirmDialogFragment;
+import br.com.moolab.fiscalabordo.fragments.DetailFragment;
+import br.com.moolab.fiscalabordo.fragments.FinishDialogFragment;
+import br.com.moolab.fiscalabordo.utils.FontsUtils;
 
-public class MainActivity extends ActionBarActivity implements DialogConfirm.ConfirmCallback {
+
+public class MainActivity extends ActionBarActivity implements ConfirmDialogFragment.ConfirmCallback {
 
     public static final String DIALOG_CONFIRM = "DIALOG_CONFIRM";
     private static final String TAG_FINISH = "TAG_FINISH";
+    private Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new PlaceholderFragment())
-                    .commit();
+            initDetail();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
+        // Parse Analytics, tracking automatic
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
-        ((FiscalAbordoApp) getApplication()).getTracker();
+        // GA tracking screen
+        tracker = ((FiscalAbordoApp) getApplication()).getTracker();
+        tracker.setScreenName("Main");
+        tracker.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -73,20 +84,14 @@ public class MainActivity extends ActionBarActivity implements DialogConfirm.Con
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_more_apps) {
 
             final String appPackageName = getPackageName();
             try {
@@ -109,14 +114,17 @@ public class MainActivity extends ActionBarActivity implements DialogConfirm.Con
     @Override
     public void onConfirm(final String company, final String velocity, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand, final boolean facebook) {
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new PlaceholderFragment())
-                .commit();
+        // Refresh Details
+        initDetail();
 
-        DialogFinish dialogFinish = new DialogFinish();
+        // Feedback Dialog, confirming registration
+        FinishDialogFragment dialogFinish = new FinishDialogFragment();
         dialogFinish.show(getSupportFragmentManager(), TAG_FINISH);
 
+        // If is facebook login auth
         if (facebook) {
+
+            // Make login and get user info, otherwise save anonymous
             ParseFacebookUtils.logIn(this, new LogInCallback() {
                 @Override
                 public void done(final ParseUser parseUser, com.parse.ParseException e) {
@@ -148,6 +156,12 @@ public class MainActivity extends ActionBarActivity implements DialogConfirm.Con
         }
     }
 
+    private void initDetail() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new DetailFragment())
+                .commit();
+    }
+
     private void saveAnonymous(final String company, final String velocity, final Boolean belt, final Boolean broke, final Boolean bug, final Boolean stand) {
 
         ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
@@ -175,105 +189,5 @@ public class MainActivity extends ActionBarActivity implements DialogConfirm.Con
         registro.put("noBelt", belt);
         registro.put("crowded", stand);
         registro.saveEventually();
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        private TextView mVelocity;
-        private FloatingActionButton mFab;
-        private Switch bug;
-        private Switch stand;
-        private Switch belt;
-        private Switch broke;
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            mVelocity = ((TextView) rootView.findViewById(R.id.header_title));
-            mVelocity.setTypeface(Fonts.getInstance().getRobotoCondensed(getActivity().getAssets()));
-            ((TextView) rootView.findViewById(R.id.header_subtitle)).setTypeface(Fonts.getInstance().getRobotoMedium(getActivity().getAssets()));
-
-            mFab = (FloatingActionButton) rootView.findViewById(R.id.header_fab);
-            mFab.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    DialogConfirm confirm = new DialogConfirm();
-                    Bundle args = new Bundle();
-                    args.putString(DialogConfirm.ARG_VELOCITY, mVelocity.getText().toString());
-                    args.putBoolean(DialogConfirm.ARG_BELT, belt.isChecked());
-                    args.putBoolean(DialogConfirm.ARG_STAND, stand.isChecked());
-                    args.putBoolean(DialogConfirm.ARG_BUG, bug.isChecked());
-                    args.putBoolean(DialogConfirm.ARG_BROKE, broke.isChecked());
-                    confirm.setArguments(args);
-                    confirm.show(getActivity().getSupportFragmentManager(), DIALOG_CONFIRM);
-                }
-            });
-
-            /**
-             * Itens selecionados
-             */
-            belt = (Switch) rootView.findViewById(R.id.belt);
-            bug = (Switch) rootView.findViewById(R.id.bug);
-            stand = (Switch) rootView.findViewById(R.id.stand);
-            broke = (Switch) rootView.findViewById(R.id.broke);
-
-            ((View) belt.getParent()).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    belt.setChecked( ! belt.isChecked());
-                }
-            });
-
-            ((View) bug.getParent()).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    bug.setChecked( ! bug.isChecked());
-                }
-            });
-
-            ((View) stand.getParent()).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    stand.setChecked( ! stand.isChecked());
-                }
-            });
-
-            ((View) broke.getParent()).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    broke.setChecked( ! broke.isChecked());
-                }
-            });
-
-            return rootView;
-        }
-
-        @Override
-        public void onActivityCreated(Bundle bundle) {
-            super.onActivityCreated(bundle);
-
-            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            LocationListener locationListener = new LocationListener() {
-                public void onLocationChanged(Location location) {
-                    location.getLatitude();
-                    mVelocity.setText(String.valueOf((int) (location.getSpeed() * 3.6)) + " Km/h");
-                }
-
-                public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-                public void onProviderEnabled(String provider) { }
-
-                public void onProviderDisabled(String provider) { }
-            };
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }
     }
 }

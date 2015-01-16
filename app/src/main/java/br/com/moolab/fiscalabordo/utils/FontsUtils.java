@@ -1,17 +1,17 @@
-package br.com.moolab.fiscalabordo;
+package br.com.moolab.fiscalabordo.utils;
 
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 
-public class Fonts {
+public class FontsUtils {
 
-	private static Fonts fonts = new Fonts();
+	private static FontsUtils fonts = new FontsUtils();
 
-	private Fonts() {
+	private FontsUtils() {
 
 	}
 
-	public static Fonts getInstance() {
+	public static FontsUtils getInstance() {
 		return fonts;
 	}
 

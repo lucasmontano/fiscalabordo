@@ -2,7 +2,7 @@
 <resources>
 
     <string name="facebook_app_id">324053601122888</string>
-    <string name="app_name">Fiscal a bordo</string>
+    <string name="app_name">Fiscal A Bordo</string>
     <string name="action_settings">Mais Aplicativos</string>
     <string name="company">Nome da empresa</string>
     <string name="company_desc">Empresa responsável pelo transporte</string>
