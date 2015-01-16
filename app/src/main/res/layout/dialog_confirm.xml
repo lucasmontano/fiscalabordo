@@ -92,6 +92,7 @@
                 android:textSize="@dimen/text_large" />
 
             <LinearLayout
+                android:id="@+id/facebook_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_intern"
