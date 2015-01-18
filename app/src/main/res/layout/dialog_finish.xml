@@ -14,20 +14,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/double_margin"
-                android:layout_marginBottom="@dimen/double_margin"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_finish"/>
-
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_dark"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -69,7 +62,7 @@
             android:padding="@dimen/padding_intern"
             android:text="@string/confirm"
             android:textAllCaps="true"
-            android:textColor="@color/text_dark"
+            android:textColor="@color/fab"
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
 </LinearLayout>

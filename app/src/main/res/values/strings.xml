@@ -9,7 +9,7 @@
     <string name="title">Passageiro Ligeiro</string>
     <string name="velocity">0 Km/h</string>
     <string name="velocity_desc">Velocidade do veículo</string>
-    <string name="belt">Sinto de segurança indisponível</string>
+    <string name="belt">Cinto de segurança indisponível</string>
     <string name="stand">Coletivo Superlotado</string>
     <string name="bug">Falta higienização</string>
     <string name="broke">Quebrou no caminho</string>
@@ -17,11 +17,12 @@
     <string name="cancel">CANCEL</string>
     <string name="public_data">Identificar-se</string>
     <string name="public_data_subtitle">Desejo me identificar, do contrário o registro será publicado anonimamente.</string>
-    <string name="msg_finish">Obrigado por reportar sua insatisfação.\n\nDesejamos a você uma excelente viagem.</string>
+    <string name="msg_finish">Obrigado por fazer a denúncia.\n\nDesejamos a você uma excelente viagem.</string>
     <string name="title_finish">Registro Feito</string>
     <string name="more_apps_link">market://search?q=pub:Moolab</string>
     <string name="fast">Reportar velocidade do veículo</string>
     <string name="title_activity_splash">Fiscal a Bordo</string>
     <string name="hello_world">Hello world!</string>
+    <string name="no_gps">Ative o GPS para \nmonitorar a velocidade.</string>
 
 </resources>

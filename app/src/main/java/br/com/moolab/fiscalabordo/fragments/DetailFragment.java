@@ -1,6 +1,7 @@
 package br.com.moolab.fiscalabordo.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
@@ -30,8 +31,9 @@ public class DetailFragment extends Fragment {
 
     @InjectView(R.id.header_title) TextView mVelocity;
     @InjectView(R.id.header_subtitle) TextView mSubTitle;
-    @InjectView(R.id.header_fab)
-    FloatingActionButton mFab;
+    @InjectView(R.id.header_fab) FloatingActionButton mFab;
+
+    @InjectView(R.id.no_gps) View mNoGPS;
 
     @InjectView(R.id.bug) Switch bug;
     @InjectView(R.id.stand) Switch stand;
@@ -43,6 +45,11 @@ public class DetailFragment extends Fragment {
     private Typeface robotoMedium;
 
     public DetailFragment() {
+    }
+
+    @OnClick(R.id.no_gps)
+    public void gpsSettings(View view) {
+        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
 
     @OnClick(R.id.fast_parent)
@@ -67,7 +74,7 @@ public class DetailFragment extends Fragment {
 
     @OnClick(R.id.broke_parent)
     public void brokeSwitch(View view) {
-        broke.setChecked( ! broke.isChecked());
+        broke.setChecked(!broke.isChecked());
     }
 
     @OnClick(R.id.header_fab)
@@ -107,5 +114,9 @@ public class DetailFragment extends Fragment {
 
     public void setVelocity(Location location) {
         mVelocity.setText(String.valueOf((int) (location.getSpeed() * 3.6)) + " Km/h");
+    }
+
+    public void setGPSEnable(boolean enable) {
+        mNoGPS.setVisibility((enable) ? View.GONE : View.VISIBLE);
     }
 }

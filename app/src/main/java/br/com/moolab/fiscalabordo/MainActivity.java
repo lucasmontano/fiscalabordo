@@ -61,6 +61,14 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         tracker = ((FABordoApp) getApplication()).getTracker();
         tracker.setScreenName("Main");
         tracker.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
@@ -79,14 +87,8 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
             public void onProviderDisabled(String provider) { }
         };
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
+        detailFragment.setGPSEnable(locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ));
     }
 
     @Override
