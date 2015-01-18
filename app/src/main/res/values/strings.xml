@@ -2,7 +2,7 @@
 <resources>
 
     <string name="facebook_app_id">324053601122888</string>
-    <string name="app_name">Fiscal A Bordo</string>
+    <string name="app_name">FiscalABordo</string>
     <string name="action_settings">Mais Aplicativos</string>
     <string name="company">Nome da empresa</string>
     <string name="company_desc">Empresa responsável pelo transporte</string>
@@ -22,7 +22,6 @@
     <string name="more_apps_link">market://search?q=pub:Moolab</string>
     <string name="fast">Reportar velocidade do veículo</string>
     <string name="title_activity_splash">Fiscal a Bordo</string>
-    <string name="hello_world">Hello world!</string>
     <string name="no_gps">Ative o GPS para \nmonitorar a velocidade.</string>
 
 </resources>
