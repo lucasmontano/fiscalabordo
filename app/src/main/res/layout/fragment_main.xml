@@ -39,15 +39,41 @@
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/no_gps"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:background="@color/primary"
+            android:padding="@dimen/activity_horizontal_margin"
+            >
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_action_location"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/no_gps"
+                android:textAllCaps="true"
+                android:drawablePadding="@dimen/padding_intern"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/header_fab"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/fab_size_normal"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/padding_intern"
             android:src="@drawable/ic_fab_megafon"
             fab:fab_colorNormal="@color/fab"
-            fab:fab_shadow="false"
+            fab:fab_shadow="true"
             fab:fab_colorPressed="@color/fab_pressed"
             fab:fab_colorRipple="@color/ripple"
             android:layout_alignParentBottom="true"
