@@ -1,15 +1,53 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/screen"
+    android:background="@color/primary"
     tools:context="br.com.moolab.fiscalabordo.SplashActivity">
+
+    <ImageView
+        android:id="@+id/clouds"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cloud_height"
+        android:layout_marginTop="@dimen/double_margin"
+        android:background="@drawable/clouds" />
+
+    <ImageView
+        android:id="@+id/morro"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/morro_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/morro"
+        android:scaleType="fitEnd" />
+
 
     <Button
         android:id="@+id/go"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/go_height"
         android:layout_alignParentBottom="true"
-        android:background="?selectableItemBackgroundBorderless"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/double_margin"
+        android:background="@drawable/btn_go" />
+
+    <ImageView
+        android:id="@+id/bus"
+        android:layout_width="@dimen/bus_width"
+        android:layout_height="@dimen/bus_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/bus_bottom"
+        android:layout_marginLeft="@dimen/double_margin"
+        android:layout_marginRight="@dimen/double_margin"
+        android:background="@drawable/bus" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/textlogo"
+        android:layout_above="@+id/bus"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

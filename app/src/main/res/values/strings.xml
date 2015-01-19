@@ -4,7 +4,7 @@
     <string name="parse_app_id">BH64VIC5VgSfnpAZ0k24q2XghUszuUjnleslRZag</string>
     <string name="parse_client_key">pTyDW3oMjr6FcPoZAEAH0rfxMpfD6luPNM2CSSwX</string>
     <string name="facebook_app_id">324053601122888</string>
-    <string name="app_name">Fiscal Bordo Debug</string>
+    <string name="app_name">Fiscal a Bordo Debug</string>
     <string name="action_settings">Mais Aplicativos</string>
     <string name="company">Nome da empresa</string>
     <string name="company_desc">Empresa responsável pelo transporte</string>
@@ -25,5 +25,6 @@
     <string name="fast">Reportar velocidade do veículo</string>
     <string name="title_activity_splash">Fiscal a Bordo</string>
     <string name="no_gps">Ative o GPS para \nmonitorar a velocidade.</string>
+    <string name="no_company">Preencha o nome da empresa.</string>
 
 </resources>

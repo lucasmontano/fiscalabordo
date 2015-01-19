@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_dark">#1c6d76</color>
-    <color name="primary">#299caa</color>
+    <color name="primary_dark">#299caa</color>
+    <color name="primary">#37b6c5</color>
 
     <color name="ripple">#F50057</color>
 
     <color name="fab">#C51162</color>
     <color name="fab_pressed">#F50057</color>
 
-    <color name="accent">#53afbb</color>
+    <color name="accent">#53d7e7</color>
 
     <color name="text_dark">#616161</color>
     <color name="text_light">#919191</color>

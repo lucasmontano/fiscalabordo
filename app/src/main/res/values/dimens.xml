@@ -12,4 +12,10 @@
     <dimen name="text_xlarge">25sp</dimen>
     <dimen name="text_xxlarge">35sp</dimen>
     <dimen name="double_margin">32dp</dimen>
+    <dimen name="bus_bottom">190dp</dimen>
+    <dimen name="morro_height">230dp</dimen>
+    <dimen name="go_height">70dp</dimen>
+    <dimen name="bus_height">100dp</dimen>
+    <dimen name="bus_width">217dp</dimen>
+    <dimen name="cloud_height">200dp</dimen>
 </resources>

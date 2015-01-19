@@ -88,7 +88,9 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         };
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
-        detailFragment.setGPSEnable(locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ));
+        if (detailFragment != null) {
+            detailFragment.setGPSEnable(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+        }
     }
 
     @Override
@@ -276,7 +278,7 @@ public class MainActivity extends ActionBarActivity implements ConfirmDialogFrag
         registro.put("fast", fast);
         registro.put("velocity", velocity);
         registro.put("broke", broke);
-        registro.put("dirty", bug);
+        registro.put("badSanitized", bug);
         registro.put("noBelt", belt);
         registro.put("crowded", stand);
         registro.saveEventually();

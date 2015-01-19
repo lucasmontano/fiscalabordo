@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.com.moolab.fiscalabordo.utils.FontsUtils;
 import br.com.moolab.fiscalabordo.R;
@@ -62,6 +63,12 @@ public class ConfirmDialogFragment extends DialogFragment {
 
     @OnClick(R.id.action_ok)
     public void ok(View view) {
+
+        if (company.getText().toString() == null || company.getText().toString().length() <= 2) {
+            Toast.makeText(getActivity(), getString(R.string.no_company), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mCallback.onConfirm(
                 company.getText().toString(),
                 velocity.getText().toString(),
