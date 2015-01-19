@@ -12,7 +12,7 @@ import com.parse.Parse;
 public class FABordoApp extends Application {
 
     public void onCreate() {
-        Parse.initialize(this, "BH64VIC5VgSfnpAZ0k24q2XghUszuUjnleslRZag", "pTyDW3oMjr6FcPoZAEAH0rfxMpfD6luPNM2CSSwX");
+        Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
     }
 
     private Tracker mTracker;
