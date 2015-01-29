@@ -51,16 +51,27 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
         android:gravity="right|center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/action_ok"
+            android:id="@+id/action_call"
             android:layout_width="wrap_content"
             android:layout_marginLeft="@dimen/padding_intern"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:padding="@dimen/padding_intern"
-            android:text="@string/confirm"
+            android:text="@string/call_prf"
+            android:textAllCaps="true"
+            android:textColor="@color/fab"
+            android:textSize="@dimen/text_medium" />
+
+        <Button
+            android:id="@+id/action_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/padding_intern"
+            android:text="@string/finish"
             android:textAllCaps="true"
             android:textColor="@color/fab"
             android:textSize="@dimen/text_medium" />

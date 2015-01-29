@@ -3,6 +3,8 @@ package br.com.moolab.fiscalabordo.fragments;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.ContextThemeWrapper;
@@ -27,6 +29,13 @@ public class FinishDialogFragment extends DialogFragment {
 
     @OnClick(R.id.action_ok)
     public void cancel(View view) {
+        FinishDialogFragment.this.dismiss();
+    }
+
+    @OnClick(R.id.action_call)
+    public void call(View view) {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:191"));
+        startActivity(intent);
         FinishDialogFragment.this.dismiss();
     }
 
